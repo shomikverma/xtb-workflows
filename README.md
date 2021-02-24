@@ -7,7 +7,9 @@ This is likely the most difficult part. The xtb, xtb4stda, and stda packages all
 
 ### xtb
 
-Statically linked binaries can be found at the [latest release page](https://github.com/grimme-lab/xtb/releases/latest). You can also install with conda using
+Statically linked binaries can be found at the [latest release page](https://github.com/grimme-lab/xtb/releases/latest). Once you unzip the targz file you'll need to add `xtb-X.X.X/bin` to `PATH` in order to make xtb accessible.
+
+You can also install with conda using
 
     conda config --add channels conda-forge
     conda install xtb
@@ -16,11 +18,25 @@ I've personally found the statically linked binary to be much more stable, but M
 
 Once you have xTB installed, you need to set up some environment variables. I've found using the following works well:
 
-    > ulimit -s unlimited
+    ulimit -s unlimited
+    export OMP_STACKSIZE=5G
+    export OMP_NUM_THREADS=<ncores>,1
+    export OMP_MAX_ACTIVE_LEVELS=1
+    export MKL_NUM_THREADS=<ncores>
+    
+You can find the number of cores on your computer using `lscpu` on Linux or `sysctl -n machdep.cpu.core_count` on Mac. Note that xTB uses single-node computation, which is good to keep in mind if using HPC.
+
+### stda
+
+Statically linked binaries can be found at the [latest release page](https://github.com/grimme-lab/xtb4stda/releases/latest). That page also contains the xtb4stda binary. Remember to add the directory where you put the binaries to `PATH` to make stda and xtb4stda accessible.
+
+If you're on Mac, there unfortunately isn't a conda package for stda. If you still want to install it on Mac, you need to build from source, following the instructions on the [stda GitHub](https://github.com/grimme-lab/stda). 
 
 ### xtb4stda
 
+The statically linked binary for xtb4stda can be found at the stda release page. Once you have the xtb4stda binary installed you also need to download the parameter files from the [xtb4stda GitHub](https://github.com/grimme-lab/xtb4stda) and set the `XTB4STDAHOME` environment variable to the directory you downloaded the files.
 
+It currently isn't possible to build xtb4stda from source in the same way as stda, I have an [issue](https://github.com/grimme-lab/xtb4stda/issues/9) open to request this feature. You can try to follow the procedure I outline in the issue or take a look at my [fork](https://github.com/shomikverma/xtb4stda) to make it run, but I can't guarantee it will work since it was pretty hacky. Don't forget to add to path and set the `XTB4STDAHOME` environment variable.
 
 ## Inputs
 
