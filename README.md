@@ -1,7 +1,7 @@
 # xtb-workflows
 Python workflows automating energy level calculations of molecules using the xTB family of methods
 
-## Installation and Setup
+## Installation
 
 You need the xtb, xtb4stda, and stda packages to run this automated workflow. I'd recommend installing on Linux using the pre-compiled binaries if possible. For your convenience, I've included all of the binaries in my `bin` directory. To make the 4 packages above accessible, navigate to the root directory and type:
 
@@ -22,16 +22,6 @@ You can also install with conda using
     
 I've personally found the statically linked binary to be much more stable, but MacOS doesn't support statically linked binaries so conda is your best bet here.
 
-Once you have xTB installed, you need to set up some environment variables. I've found using the following works well:
-
-    ulimit -s unlimited
-    export OMP_STACKSIZE=5G
-    export OMP_NUM_THREADS=<ncores>,1
-    export OMP_MAX_ACTIVE_LEVELS=1
-    export MKL_NUM_THREADS=<ncores>
-    
-You can find the number of cores on your computer using `lscpu` on Linux or `sysctl -n machdep.cpu.core_count` on Mac. Note that xTB uses single-node computation, which is good to keep in mind if using HPC.
-
 ### stda
 
 Statically linked binaries can be found at the [latest release page](https://github.com/grimme-lab/xtb4stda/releases/latest). That page also contains the xtb4stda binary. Remember to add the directory where you put the binaries to `PATH` to make stda and xtb4stda accessible.
@@ -44,9 +34,21 @@ The statically linked binary for xtb4stda can be found at the stda release page.
 
 It currently isn't possible to build xtb4stda from source in the same way as stda, I have an [issue](https://github.com/grimme-lab/xtb4stda/issues/9) open to request this feature. You can try to follow the procedure I outline in the issue or take a look at my [fork](https://github.com/shomikverma/xtb4stda) to make it run, but I can't guarantee it will work since it was pretty hacky. Don't forget to add to path and set the `XTB4STDAHOME` environment variable.
 
-## Inputs
+## Setup
 
-You can put .xyz files for molecules you want to run in the `molxyzfiles` folder. The folder has an .xyz file already available for testing to make sure everything is set up correctly.
+In order to get xTB to work stably, you need to set up some environment variables. I've found using the following works well:
+
+    ulimit -s unlimited
+    export OMP_STACKSIZE=5G
+    export OMP_NUM_THREADS=<ncores>,1
+    export OMP_MAX_ACTIVE_LEVELS=1
+    export MKL_NUM_THREADS=<ncores>
+    
+You can find the number of cores on your computer using `lscpu` on Linux or `sysctl -n machdep.cpu.core_count` on Mac. Note that xTB uses single-node computation, which is good to keep in mind if using HPC.
+
+At this point, you should have all the packages required installed and set up. Now, you can put .xyz files for molecules you want to run in the `molxyzfiles` folder. The folder has an .xyz file already available for testing to make sure everything is set up correctly.
+
+## Inputs
 
 Default inputs for xTB are as follows:
 * Calculates with GFN2-xTB unless this fails, in which case will try GFN1-xTB
