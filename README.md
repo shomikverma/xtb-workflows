@@ -3,7 +3,13 @@ Python workflows automating energy level calculations of molecules using the xTB
 
 ## Installation and Setup
 
-This is the most difficult part. The xtb, xtb4stda, and stda packages all need to be installed before you can run this automated workflow. I found xTB and sTDA to be relatively easy to install on Mac, but xtb4stda was quite difficult. I'd recommend installing on Linux using the pre-compiled binaries if possible. Details below:
+You need the xtb, xtb4stda, and stda packages to run this automated workflow. I'd recommend installing on Linux using the pre-compiled binaries if possible. For your convenience, I've included all of the binaries in my `bin` directory. To make the 4 packages above accessible, navigate to the root directory and type:
+
+    export PATH=$PATH:$PWD/bin
+    export PATH=$PATH:$PWD/bin/xtb-6.3.3/bin
+    export XTB4STDAHOME=$PWD/xtb4stda-1.0 
+
+If for some reason the binaries included in the `bin` folder don't work, you can download them yourself from the respective GitHub pages. Also, if you're on Mac, unfortunately you can't use statically linked binaries, so you have to compile from source. More details below:
 
 ### xtb
 
